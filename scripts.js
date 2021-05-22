@@ -2,7 +2,7 @@ let button = document.querySelectorAll('.button')
 const screen = document.querySelector('#screenText')
 
 
-let screenText = '';
+
 
 //loop through all of the buttons and add event listen for click function
 for (let i = 0; i < button.length; i++) {
@@ -19,11 +19,11 @@ let operand2 = ' ';
 let operator = ' ';
 let result = ' ';
 let numberLog = ' ';
-let specialSituation = false;
-let equalSet = false;
+let specialSituation = false; // stringing together operations
+let screenText = '';
 
 
-setScreen('lets do some math!')
+setScreen('let\'s do some math!')
 
 //Math!
 
@@ -34,65 +34,74 @@ function buttonClick(e) {
         e.target.classList.remove('buttonClick');
     }, 100);
 
-    //update screen
 
     if (e.target.value === 'clear') {
-        screenText = ' ';
-        operand1 = ' ';
-        operand2 = ' ';
-        operator = ' ';
-        result = ' ';
-        numberLog = ' ';
-        equalSet = false;
-        specialSituation = false;
+        clearIt()
         setScreen(numberLog);
 
     } else if (e.target.classList.contains('operand')) {
 
-        if (specialSituation) {
-            numberLog = ' '
-            setScreen(numberLog)
-            numberLog += e.target.value
-            setScreen(numberLog);
-            specialSituation = false;
-
-        } else if (operand1 === ' ') {
-            numberLog += e.target.value;
+        if (deciRules(e)) {
             setScreen(numberLog)
 
-        } else if (operator !== ' ') {
-            numberLog += e.target.value;
-            setScreen(numberLog)
+        } else {
+            if (numberLog.length > 15) {
+                setScreen(numberLog);
+
+            } else if (specialSituation) {
+                numberLog = ' '
+                setScreen(numberLog)
+                numberLog += e.target.value
+                setScreen(numberLog);
+                operand2 = ' ';
+                specialSituation = false;
+
+            } else if (operand1 === ' ') {
+                numberLog += e.target.value;
+                setScreen(numberLog)
+
+            } else if (operator !== ' ') {
+                numberLog += e.target.value;
+                setScreen(numberLog)
+            }
+
         }
-
-
 
     } else if (e.target.classList.contains('operator')) {
 
         if (operator === ' ') {
-            operand1 = parseInt(numberLog);
+            operand1 = parseFloat(numberLog);
             numberLog = ' ';
             setScreen(numberLog);
             operator = e.target.value;
 
-
         } else if (operator !== ' ') {
-            operand2 = parseInt(numberLog);
-            result = operate(operand1, operator, operand2);
-            setScreen(result);
-            operand2 = ' ';
-            operand1 = result;
-            operator = e.target.value;
-            specialSituation = true;
+            operand2 = parseFloat(numberLog);
 
+            if (divideZero() === true) {
+                setScreen('Don\'t do that.')
+            } else {
+                result = operate(operand1, operator, operand2);
+                setScreen(result);
+                operand2 = ' ';
+                operand1 = result;
+                operator = e.target.value;
+                specialSituation = true
+            }
         }
 
-
     } else if (e.target.classList.contains('equals')) {
-        operand2 = parseInt(numberLog);
-        result = operate(operand1, operator, operand2);
-        setScreen(result);
+        operand2 = parseFloat(numberLog);
 
+        if (divideZero()) {
+            setScreen('Don\'t do that.')
+        } else if (operator === ' ') {
+            setScreen(numberLog)
+        } else {
+            divideZero(operand2, operator);
+            result = operate(operand1, operator, operand2);
+            setScreen(result);
+        }
     }
 }
 
@@ -106,6 +115,7 @@ function buttonClick(e) {
 
 function setScreen(text) {
     screen.innerText = text;
+
 
 }
 
@@ -135,7 +145,29 @@ function operate(a, operator, b) {
     } else if (operator === 'divide') {
         return divide(a, b);
     } else {
-        console.log('operate function didnt work')
+
     }
 
+}
+
+function clearIt() {
+    screenText = ' ';
+    operand1 = ' ';
+    operand2 = ' ';
+    operator = ' ';
+    result = ' ';
+    numberLog = ' ';
+    specialSituation = false;
+}
+
+function divideZero() {
+    if (operator === 'divide' && operand2 === 0) {
+        return true
+    }
+
+}
+
+function deciRules(e) {
+    if  ((e.target.value === '.' && numberLog === ' ') || (e.target.value === '.' && numberLog.includes('.'))) {return true}
+    
 }

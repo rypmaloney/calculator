@@ -1,7 +1,12 @@
+strong {
+    pointer-events:none;
+}
+
 h1{
     margin-left: 43px;
     font-family: 'Monoton', cursive;
     font-weight: 100;
+    clear: right;
 }
 h2 {
     font-family: 'IBM Plex Mono', monospace;
@@ -14,25 +19,25 @@ h2 {
 
 p{
     font-family: 'IBM Plex Mono', monospace;
-    float: right;
-    font-size: 20px;
-    margin: 7px 20px 10px 0px
+    text-align: right;
+    font-size: 18px;
+    margin: 7px 12px 10px 0px
         
     
 }
 
 #main{
-    margin-left: 36% ;
+    margin-left: 36%;
 }
 
 #wrapper{
-    
+
     width: 320px;
     height: 440px;
     border: 2px solid #908a8a;
     border-radius: 10px;
     background-color: rgba(191, 191, 90, 0.56);
-    box-shadow: 1px 1px 0px #453939;
+    box-shadow: 5px 5px 0px rgba(92, 92, 54, 0.56);
         
 }
 
@@ -74,9 +79,9 @@ button{
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
-    margin: 7px;
+    margin: 6px;
     background-color: #a4aca3;
-    box-shadow: inset 2px 2px gray;
+    box-shadow: inset 3px 3px gray;
 
 
 }
