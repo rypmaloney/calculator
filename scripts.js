@@ -1,7 +1,15 @@
-let button = document.querySelectorAll('.button')
+const button = document.querySelectorAll('.button')
 const screen = document.querySelector('#screenText')
 
+let operand1 = ' ';
+let operand2 = ' ';
+let operator = ' ';
+let result = ' ';
+let numberLog = ' ';
+let specialSituation = false; // stringing together operations
+let screenText = '';
 
+setScreen('let\'s do some math!')
 
 
 //loop through all of the buttons and add event listen for click function
@@ -12,21 +20,7 @@ for (let i = 0; i < button.length; i++) {
 }
 
 
-
-
-let operand1 = ' ';
-let operand2 = ' ';
-let operator = ' ';
-let result = ' ';
-let numberLog = ' ';
-let specialSituation = false; // stringing together operations
-let screenText = '';
-
-
-setScreen('let\'s do some math!')
-
-//Math!
-
+//When the user clicks any button: visual effect/decision tree
 function buttonClick(e) {
     //visual effect of click
     e.target.classList.add('buttonClick');
@@ -34,7 +28,7 @@ function buttonClick(e) {
         e.target.classList.remove('buttonClick');
     }, 100);
 
-
+    // If the user clicks clear, operand, or operator. 
     if (e.target.value === 'clear') {
         clearIt()
         setScreen(numberLog);
