@@ -7,4 +7,4 @@ Each button is tagged by a class of 'operator,' 'operand,' or 'equals.' The deci
 The main sticking point I had on this projects was what would happen if multiple operations are strung together. Obviously, the result of the first operation would become operand1. But the various input combinations made my code confusion. Utimately, what helped me was breaking things down into results of the three main inputs (.operator, .operand, and .equals) and nesting the various situations beneath these. 
 
 
-
+[Live preivew](https://raw.githack.com/rypmaloney/calculator/43e0b11753ccc1ba11741ee76a645c9cfe8329f3/index.html)
